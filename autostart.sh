@@ -1,4 +1,7 @@
 #!/bin/bash
 # chkconfig: 345 90 90
 # description: autostart......
-python /root/test.py
+cd /root/v2ray_client
+nohup ./v2ray -config=config.json &
+cd /root
+nohup python /root/test.py &
