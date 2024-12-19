@@ -5,6 +5,7 @@ import http.server
 import hashlib
 import os
 import urllib.request
+import urllib.parse
 import sys
 import re
 
@@ -30,10 +31,16 @@ class CacheHandler(http.server.BaseHTTPRequestHandler):
             </html>
             '''
     def do_GET(self):
-        if self.path == "/url":
+        query_components = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+        user_id = query_components.get('id', [None])[0]
+        user_pw = query_components.get('pw', [None])[0]
+        print(f"id:{user_id}, pw:{user_pw}")
+        if user_id != "id666" or user_pw!="pw888":
+            return  self.send_page("拒绝访问")
+        if "/url" in self.path:
             page = self.create_page('v2ray url')
             self.send_page(page)
-        elif self.path == "/ssinfo":
+        elif "/ssinfo" in self.path:
             page = self.create_page('v2ray ssinfo')
             self.send_page(page)
 
