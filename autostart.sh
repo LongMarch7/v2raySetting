@@ -4,4 +4,4 @@
 cd /root/v2ray_client
 nohup ./v2ray run -config=config.json &
 cd /root
-nohup python /root/test.py &
+nohup python3 /root/test.py &
